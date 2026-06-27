@@ -24,6 +24,12 @@ app.get("/countries/:code", (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Only start a normal server when run directly (e.g. on Render / local dev).
+// On Vercel, the app is imported and called directly as a serverless function.
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
